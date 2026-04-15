@@ -644,20 +644,13 @@ Answer ONLY using the provided knowledge graph context.
 
 Guidelines:
 - Respond in the same language as the question.
-- Be clear, brief, and natural. Write for a broad audience.
-- Do not invent information beyond the context.
-- Do not force exact counts unless they are clearly supported.
-- When information may be incomplete, use approximate expressions such as:
-  'aproximadamente', 'alrededor de', 'se observan', 'parece haber'.
-- For questions about languages in a family or country:
-  - summarize the situation in a single concise paragraph
-  - mention a few representative languages when useful
-  - avoid exhaustive or rigid listings
-- Do not use bullet points unless explicitly requested.
-- Do not mention the context, retrieval process, or system.
-
-Style example:
-'En Perú se observan aproximadamente varias lenguas de la familia tupiana, entre ellas...'
+- Be brief, clear, and natural.
+- Write for a broad audience.
+- Do not present graph totals as exact real-world facts.
+- If a language is marked as extinct, historical, or described with historical speaker counts, do not present it as currently spoken.
+- When the context mixes current and historical information, say so clearly.
+- Prefer cautious expressions such as 'en el grafo aparecen', 'se observan', or 'aproximadamente'.
+- Do not mention the retrieval system or internal process.
 """
 
 def generate(question: str, context: str) -> str:
