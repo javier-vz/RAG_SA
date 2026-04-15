@@ -592,10 +592,10 @@ def build_context(entity_ids: list, entities: dict, max_chars: int = 2500) -> st
             fam_str = " (" + ", ".join(fams) + ")" if fams else ""
             details.append("  - " + ent["label"] + fam_str + ": " + str(spk) + " hablantes")
         return (
-            "[COUNTRY QUERY] Ejemplos de lenguas en " + country_filter
+            "[COUNTRY QUERY] Ejemplos de lenguas en " + country_filter + "\n\n"
             "Lenguas observadas: " + names + "\n\n"
             "Most spoken (with data):\n" + "\n".join(details)
-        )
+            )
 
     if family_filter and family_filter in entities:
         fam = entities[family_filter]
