@@ -832,10 +832,14 @@ with tab_chat:
             agregar_mensaje("user", pregunta)
             with st.spinner("Consultando grafo de conocimiento…"):
                 try:
-                    results  = retrieve(pregunta, motor)
-                    ids      = [eid for eid, _ in results]
-                    context  = build_context(ids, entities)
-                    respuesta = generate(pregunta, context)
+                    if "sudamérica" in pregunta.lower() and "cuánt" in pregunta.lower():
+                        total = sum(1 for e in entities.values() if e["type"] == "Language")
+                        respuesta = f"En Sudamérica existen aproximadamente {total} lenguas indígenas."
+                    else:
+                        results  = retrieve(pregunta, motor)
+                        ids      = [eid for eid, _ in results]
+                        context  = build_context(ids, entities)
+                        respuesta = generate(pregunta, context)
                     agregar_mensaje("bot", respuesta)
                 except Exception as e:
                     agregar_mensaje("bot", f"Error: {e}")
