@@ -590,7 +590,7 @@ def build_context(entity_ids: list, entities: dict, max_chars: int = 2500) -> st
             fam_str = " (" + ", ".join(fams) + ")" if fams else ""
             details.append("  - " + ent["label"] + fam_str + ": " + str(spk) + " hablantes")
         return (
-            "[COUNTRY QUERY] Lenguas en " + country_filter + ": aproximadamente " + str(n) + "\n\n"
+            "[COUNTRY QUERY] Lenguas asociadas a " + country_filter + "\n\n"
             "Complete list: " + names + "\n\n"
             "Most spoken (with data):\n" + "\n".join(details)
         )
@@ -654,15 +654,28 @@ SYSTEM_PROMPT = """You are a specialist assistant in South American indigenous l
 
 Answer ONLY using the provided knowledge graph context.
 
-Guidelines:
+Rules:
 - Respond in the same language as the question.
-- Be brief, clear, and natural.
+- Be clear, brief, and natural.
 - Write for a broad audience.
+
+IMPORTANT:
+- Distinguish the type of question.
+
+IF the question asks "cuántas":
+- Give ONLY an approximate number.
+- Do NOT list languages.
+- Use expressions like: "aproximadamente", "alrededor de".
+
+IF the question asks "qué lenguas":
+- Mention several representative languages.
+- Do NOT try to give a full list.
+- Do NOT emphasize the total number.
+
+General:
 - Do not present graph totals as exact real-world facts.
-- If a language is marked as extinct, historical, or described with historical speaker counts, do not present it as currently spoken.
-- When the context mixes current and historical information, say so clearly.
-- Prefer cautious expressions such as 'en el grafo aparecen', 'se observan', or 'aproximadamente'.
-- Do not mention the retrieval system or internal process.
+- If information may be incomplete, speak in approximate terms.
+- Do not mention the context or system.
 """
 
 def generate(question: str, context: str) -> str:
