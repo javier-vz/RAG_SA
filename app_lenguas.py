@@ -284,6 +284,14 @@ def cargar_grafo(ttl_path: str):
         if not (is_lang or is_fam): continue
 
         families = extr_families(b)
+        wiki_text = extr(b, "wikipedia_summary").lower()
+
+        is_historical = (
+        "extinct" in wiki_text or
+        "was an extinct" in wiki_text or
+        "there were" in wiki_text
+        )
+        
         entities[eid] = {
             "type":     "Language" if is_lang else "Family",
             "label":    extr(b, "label") or eid,
@@ -294,6 +302,7 @@ def cargar_grafo(ttl_path: str):
             "wiki":      extr(b, "wikipedia_summary"),
             "families":  families,
             "members":   [],
+            "is_historical": is_historical,
         }
         for fid in families:
             family_members[fid].append(eid)
@@ -564,8 +573,11 @@ def build_context(entity_ids: list, entities: dict, max_chars: int = 2500) -> st
     if country_filter:
         langs = [
             (eid, ent) for eid, ent in entities.items()
-            if ent.get("type") == "Language" and ent.get("countries") == country_filter
-        ]
+            if ent.get("type") == "Language"
+            and ent.get("countries") == country_filter
+            and ent.get("speakers") not in ("0", "", None)
+            and not ent.get("is_historical", False)
+    ]
         langs.sort(key=lambda x: -(int(x[1]["speakers"]) if (x[1].get("speakers") or "").isdigit() else 0))
         n = len(langs)
         names = ", ".join(e["label"] for _, e in langs[:50])
@@ -578,7 +590,7 @@ def build_context(entity_ids: list, entities: dict, max_chars: int = 2500) -> st
             fam_str = " (" + ", ".join(fams) + ")" if fams else ""
             details.append("  - " + ent["label"] + fam_str + ": " + str(spk) + " hablantes")
         return (
-            "[COUNTRY QUERY] Languages of " + country_filter + ": " + str(n) + " total\n\n"
+            "[COUNTRY QUERY] Lenguas en " + country_filter + ": aproximadamente " + str(n) + "\n\n"
             "Complete list: " + names + "\n\n"
             "Most spoken (with data):\n" + "\n".join(details)
         )
