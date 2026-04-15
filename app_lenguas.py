@@ -580,9 +580,11 @@ def build_context(entity_ids: list, entities: dict, max_chars: int = 2500) -> st
     ]
         langs.sort(key=lambda x: -(int(x[1]["speakers"]) if (x[1].get("speakers") or "").isdigit() else 0))
         n = len(langs)
-        names = ", ".join(e["label"] for _, e in langs[:50])
-        if n > 50:
-            names += " ... y " + str(n - 50) + " mas"
+        names = ", ".join(e["label"] for _, e in langs[:10])
+        if n > 10:
+            names += ", entre otras"
+        #if n > 50:
+        #    names += " ... y " + str(n - 50) + " mas"
         details = []
         for _, ent in langs[:8]:
             spk = ent.get("speakers") or "sin dato"
@@ -590,8 +592,8 @@ def build_context(entity_ids: list, entities: dict, max_chars: int = 2500) -> st
             fam_str = " (" + ", ".join(fams) + ")" if fams else ""
             details.append("  - " + ent["label"] + fam_str + ": " + str(spk) + " hablantes")
         return (
-            "[COUNTRY QUERY] Lenguas asociadas a " + country_filter + "\n\n"
-            "Complete list: " + names + "\n\n"
+            "[COUNTRY QUERY] Ejemplos de lenguas en " + country_filter
+            "Lenguas observadas: " + names + "\n\n"
             "Most spoken (with data):\n" + "\n".join(details)
         )
 
