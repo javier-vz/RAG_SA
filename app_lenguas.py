@@ -736,22 +736,16 @@ def limpiar_chat():
 #
 
 PREGUNTAS = [
-    "¿Qué lenguas pertenecen a la familia Tupiana?",
-    "¿Qué es el Pirahã?",
-    "¿Dónde se habla el Mapudungun?",
-    "¿Qué lenguas están extintas en Argentina?",
-    "¿Cuántos hablantes tiene el Quechua de Cusco?",
-    "¿Qué lenguas de señas existen en Sudamérica?",
-    "¿Qué es el Yanomamö?",
-    "¿Qué lenguas pertenecen a la familia Arawak?",
-    "¿Qué es el Wayuu?",
-    "¿Qué lenguas se hablan en Bolivia?",
-    "¿Qué es el Aymara?",
+    "¿Qué lenguas indígenas se hablan actualmente en Perú?",
+    "¿Cuántas lenguas indígenas existen en Sudamérica aproximadamente?",
     "¿Cuáles son las lenguas más habladas de la región?",
-    "¿Qué lenguas están en peligro crítico?",
-    "¿Qué es el Asháninka?",
-    "¿Cuántas lenguas tupí-guaraní existen?",
-    "¿Qué es el Quechua de Ayacucho?",
+    "¿Qué lenguas están en peligro crítico de desaparición?",
+    "¿Qué lenguas se hablan en la Amazonía peruana?",
+    "¿Qué lenguas pertenecen a la familia tupí-guaraní?",
+    "¿Qué lenguas están relacionadas con el quechua?",
+    "¿Qué lenguas se hablan en más de un país?",
+    "¿Qué lenguas indígenas existen en Bolivia?",
+    "¿Qué lenguas tienen menos de 100 hablantes?"
 ]
 
 #
